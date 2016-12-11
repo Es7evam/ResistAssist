@@ -1,0 +1,211 @@
+d>
+<title> Resistance Fera </title>
+<script type="text/javascript">
+var g_round = 0; // round atual
+var g_players = []; // jogadores no jogo
+var g_chosen_players = []; // jogadores na missao
+var g_players_per_mission = []; // qtde de jogadores por missao
+var g_fails_per_mission = []; // qtde de falhas por missao
+var g_ok = false;
+
+function contains(a, obj) {
+	    for (var i = 0; i < a.length; i++) {
+		            if (a[i] === obj) {
+				                return true;
+						        }
+			        }
+	        return false;
+}
+
+function find(a, obj) {
+	    for (var i = 0; i < a.length; i++) {
+		            if (a[i] === obj) {
+				                return i;
+						        }
+			        }
+	        return -1;   
+}
+
+function delete_element_by_id(id) {
+	    var elem = document.getElementById(id);
+	        elem.parentNode.removeChild(elem);
+}
+
+function delete_element(elem) {
+	    elem.parentNode.removeChild(elem);   
+}
+
+function clear_round() {
+	    document.getElementById("votos").value = "";
+	        document.getElementById("jogadores_na_missao").innerHTML = "";
+		    g_chosen_players = [];
+}
+
+function end_prep() {
+	    var player_qty = g_players.length;
+	        if (player_qty == 6) {
+			        g_players_per_mission = [2, 3, 4, 3, 4];
+				        g_fails_per_mission = [1, 1, 1, 1, 1];
+					    } else if (player_qty == 7) {
+						            g_players_per_mission = [2, 3, 3, 4, 4];
+							            g_fails_per_mission = [1, 1, 1, 2, 1];
+								        } else if (player_qty == 8 || player_qty == 9 || player_qty == 10) {
+										        g_players_per_mission = [3, 4, 4, 5, 5];
+											        g_fails_per_mission = [1, 1, 1, 2, 1];
+												    }
+		    delete_element_by_id("button_new_player");
+		        delete_element_by_id("button_ok");
+			    document.getElementById("novo_jogador").innerHTML = "";
+			        g_ok = true;
+}
+
+function enviar() {
+	    var sd = document.getElementById("votos").value;
+	        if (g_chosen_players.length != g_players_per_mission[g_round]) {
+			        alert("Esta rodada deve ter "+g_players_per_mission[g_round]+" jogadores");
+				        clear_round();
+					        return;
+						    }
+		    if (sd.length != g_chosen_players.length) {
+			            alert("Nem todos os jogadores na missao votaram");
+				            clear_round();
+					            return;
+						        }
+		        var x0 = 0, x1 = 0, x2 = 0;
+			    for (var i = 0; i < sd.length; i++) {
+				            if (sd[i] == '0') x0++;
+					            else if (sd[i] == '1') x1++;
+						            else x2++;
+							        }
+			        if (x2 > 0) {
+					        alert("TROLLOU!!!!");
+						        return;
+							    }
+				    // Pega o nome das pessoas que participaram da missao
+				    var nomes = "";
+				        for (var i = 0; i < g_chosen_players.length; i++) {
+						        nomes += g_chosen_players[i] + " "; 
+							    }
+					    // Escreve o resultado
+					    if (x0 >= g_fails_per_mission[g_round]) document.getElementById("pessoas").innerHTML += "<h2><spam style='color: red'>WA ("+x1+"x"+x0+")</spam> Pessoas: " + nomes + "</h2>";
+					        else document.getElementById("pessoas").innerHTML += "<h2><spam style='color: green'>AC ("+x1+"x"+x0+")</spam> Pessoas: " + nomes + "</h2>";
+						    // Passa para a proxima rodada
+						    g_round++;
+						        document.getElementById("nro_da_missao").innerHTML = g_round+1;
+							    // Limpa as variaveis para a proxima rodada
+							    clear_round();
+}
+
+function add_player() {
+	    var player_name = document.getElementById("nome_novo_jogador").value;
+	        console.log(player_name);
+		    g_players.push(player_name);
+		        document.getElementById("nome_jogadores").innerHTML += "<button type=\"button\" onclick=\"choose_player(this);\" name="+player_name+">" + player_name + "</button>";
+			    document.getElementById("qtde_de_jogadores").innerHTML = "" + g_players.length;
+}
+
+function new_player() {
+	    document.getElementById("novo_jogador").innerHTML = "<input type=\"name\" id=\"nome_novo_jogador\" value=\"Novo jogador\" onFocus=\"this.select();\"/>";
+	        document.getElementById("nome_novo_jogador").onkeypress = function(e) {
+			var event = e || window.e<html>
+				<head>
+				<title> Resistance Fera </title>
+				<script type="text/javascript">
+var g_round = 0; // round atual
+			var g_players = []; // jogadores no jogo
+			var g_chosen_players = []; // jogadores na missao
+			var g_players_per_mission = []; // qtde de jogadores por missao
+			var g_fails_per_mission = []; // qtde de falhas por missao
+			var g_ok = false;
+			
+			function contains(a, obj) {
+				    for (var i = 0; i < a.length; i++) {
+					            if (a[i] === obj) {
+							                return true;
+									        }
+						        }
+				        return false;
+			}
+			
+			function find(a, obj) {
+				    for (var i = 0; i < a.length; i++) {
+					            if (a[i] === obj) {
+							                return i;
+									        }
+						        }
+				        return -1;   
+			}
+			
+			function delete_element_by_id(id) {
+				    var elem = document.getElementById(id);
+				        elem.parentNode.removeChild(elem);
+			}
+			
+			function delete_element(elem) {
+				    elem.parentNode.removeChild(elem);   
+			}
+			
+			function clear_round() {
+				    document.getElementById("votos").value = "";
+				        document.getElementById("jogadores_na_missao").innerHTML = "";
+					    g_chosen_players = [];
+			}
+			
+			function end_prep() {
+				    var player_qty = g_players.length;
+				        if (player_qty == 6) {
+						        g_players_per_mission = [2, 3, 4, 3, 4];
+							        g_fails_per_mission = [1, 1, 1, 1, 1];
+								    } else if (player_qty == 7) {
+									            g_players_per_mission = [2, 3, 3, 4, 4];
+										            g_fails_per_mission = [1, 1, 1, 2, 1];
+											        } else if (player_qty == 8 || player_qty == 9 || player_qty == 10) {
+													        g_players_per_mission = [3, 4, 4, 5, 5];
+														        g_fails_per_mission = [1, 1, 1, 2, 1];
+															    }
+					    delete_element_by_id("button_new_player");
+					        delete_element_by_id("button_ok");
+						    document.getElementById("novo_jogador").innerHTML = "";
+						        g_ok = true;
+			}
+			
+			function enviar() {
+				    var sd = document.getElementById("votos").value;
+				        if (g_chosen_players.length != g_players_per_mission[g_round]) {
+						        alert("Esta rodada deve ter "+g_players_per_mission[g_round]+" jogadores");
+							        clear_round();
+								        return;
+									    }
+					    if (sd.length != g_chosen_players.length) {
+						            alert("Nem todos os jogadores na missao votaram");
+							            clear_round();
+								            return;
+									        }
+					        var x0 = 0, x1 = 0, x2 = 0;
+						    for (var i = 0; i < sd.length; i++) {
+							            if (sd[i] == '0') x0++;
+								            else if (sd[i] == '1') x1++;
+									            else x2++;
+										        }
+						        if (x2 > 0) {
+								        alert("TROLLOU!!!!");
+									        return;
+										    }
+							vent;
+				        var charCode = event.which || event.keyCode;
+
+					        if ( charCode == "13") {
+							            add_player();
+								                document.getElementById("novo_jogador").innerHTML = "";
+										        }
+						    }
+		    document.getElementById("nome_novo_jogador").focus();
+
+}
+
+function choose_player(e) {
+	    if (!g_ok) {
+		            alert("Clique em ok para comecar a partida");
+			            return;
+				        }
+	        if (!cont
